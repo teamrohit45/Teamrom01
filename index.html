@@ -5,10 +5,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TEAMROHITOFFICAL45</title>
+
+  <!-- Shaka Player Core & UI -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.1/shaka-player.compiled.min.js"
+    crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.1/shaka-player.ui.min.js"
     crossorigin="anonymous"></script>
+
+  <!-- Shaka Player UI Styles -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.1/controls.min.css"
     crossorigin="anonymous">
+
   <style>
     html, body {
       margin: 0;
@@ -29,7 +36,7 @@
       height: 100%;
     }
 
-    /* Premium Centered Square Telegram Popup Styles */
+    /* Telegram Popup */
     #telegram-popup {
       position: fixed;
       top: 50%;
@@ -101,7 +108,7 @@
     <div id="controls" class="shaka-controls-container"></div>
   </div>
 
-  <!-- Premium Centered Square Telegram Pop-up -->
+  <!-- Telegram Pop-up -->
   <div id="telegram-popup">
     <h3>Join Our Telegram</h3>
     <p>Get live match links and exclusive updates.</p>
@@ -110,13 +117,20 @@
   </div>
 
   <script>
-    async function initPlayer() {
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (!shaka.Player.isBrowserSupported()) {
+        alert('Shaka Player is not supported in this browser.');
+        return;
+      }
+
       const video = document.getElementById('video');
       const container = document.getElementById('video-container');
-      const ui = new shaka.ui.Overlay(new shaka.Player(video), container, video);
-      const controls = ui.getControls();
-      const player = controls.getPlayer();
 
+      const player = new shaka.Player(video);
+      const ui = new shaka.ui.Overlay(player, container, video);
+      const controls = ui.getControls();
+
+      // Player config
       player.configure({
         drm: {
           clearKeys: {
@@ -133,35 +147,22 @@
 
       ui.configure({
         controlPanelElements: [
-          'rewind', 'fast_forward',
-          'mute', 'volume', 'spacer', 'time_and_duration',
-          'fullscreen', 'overflow_menu'
+          'rewind', 'fast_forward', 'mute', 'volume',
+          'spacer', 'time_and_duration', 'fullscreen', 'overflow_menu'
         ],
         overflowMenuButtons: ['quality', 'language', 'playback_rate', 'captions'],
         autoHide: false,
         fadeDelay: 0
       });
 
-      const manifestUri = 'https://otte.live.fly.ww.aiv-cdn.net/bom-nitro/live/clients/dash/enc/uugw0qkwob/out/v1/acfdcf2dabd24075bb615c6c19ba9bd4/cenc.mpd';
-
       try {
-        await player.load(manifestUri);
+        await player.load('https://otte.live.fly.ww.aiv-cdn.net/bom-nitro/live/clients/dash/enc/uugw0qkwob/out/v1/acfdcf2dabd24075bb615c6c19ba9bd4/cenc.mpd');
         console.log('Video loaded!');
       } catch (e) {
-        console.error('Error loading video', e);
+        console.error('Error loading video:', e);
+        alert('Failed to load video stream. Please try again later.');
       }
-        setTimeout(() => {
-        const spinner = container.querySelector('.shaka-spinner-container');
-        if (spinner) spinner.remove();
-      }, 500);
-
-      setTimeout(() => {
-        const playPause = container.querySelector('.shaka-play-button');
-        if (playPause) playPause.remove();
-      }, 800);
-    }
-
-    document.addEventListener('DOMContentLoaded', initPlayer);
+    });
   </script>
 </body>
 
