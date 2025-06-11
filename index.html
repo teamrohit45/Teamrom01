@@ -1,120 +1,168 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-    <title>TEAMROHITOFFICAL45_LIVE</title>
-    <link rel="icon" href="" type="image/png" sizes="250x250">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.1/shaka-player.ui.min.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.1/controls.min.css" crossorigin="anonymous">
-    <style>
-        /* Overflow menu style */
-        .shaka-overflow-menu {
-            background-color: rgb(41, 41, 163);
-            color: rgb(153, 153, 153);
-        }
-        .shaka-overflow-menu button:hover {
-            background-color: rgb(45, 45, 45);
-        }
-        .shaka-overflow-button-label {
-            color: rgb(245, 245, 245);
-        }
-        .shaka-current-selection-span {
-            color: rgb(202, 202, 202);
-        }
-        .material-icons-round {
-            color: rgb(230, 230, 230);
-        }
-        /* Overflow sub menu style */
-        .shaka-settings-menu {
-            background-color: rgb(35, 35, 35);
-            color: rgb(255, 255, 255);
-        }
-        .shaka-settings-menu button {
-            color: rgb(255, 255, 255);
-        }
-        .shaka-settings-menu button:hover {
-            background-color: rgb(45, 45, 45);
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEAMROHITOFFICAL45</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.1/shaka-player.ui.min.js"
+    crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.1/controls.min.css"
+    crossorigin="anonymous">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #000;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    #video-container {
+      width: 100%;
+      height: 100%;
+      position: relative;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Premium Centered Square Telegram Popup Styles */
+    #telegram-popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: linear-gradient(145deg, #1f1f1f, #2c2c2c);
+      color: #fff;
+      width: 300px;
+      height: 300px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.7);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      animation: popupFadeIn 0.5s ease forwards;
+      padding: 15px;
+    }
+
+    #telegram-popup h3 {
+      margin-bottom: 10px;
+      font-size: 22px;
+      color: #00afff;
+    }
+
+    #telegram-popup p {
+      font-size: 14px;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+
+    #telegram-popup button {
+      background: #00afff;
+      border: none;
+      color: #fff;
+      padding: 10px 15px;
+      margin: 6px 0;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      width: 80%;
+      font-size: 15px;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    #telegram-popup button:hover {
+      background: #008fcc;
+      transform: scale(1.05);
+    }
+
+    @keyframes popupFadeIn {
+      from {
+        opacity: 0;
+        transform: translate(-50%, -40%);
+      }
+      to {
+        opacity: 1;
+        transform: translate(-50%, -50%);
+      }
+    }
+  </style>
 </head>
-<body bgcolor="black" style="margin:0">
-    <center>
-        <div data-shaka-player-container style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover">
-            <video autoplay muted data-shaka-player id="video" 
-                poster="https://i.ibb.co/CpPYdm25/IMG-20250324-183620-441.jpg" 
-                style="width:100%;height:100%"></video>
-        </div>
-    </center>
 
-    <script>
-        async function init() {
-            let video = document.getElementById("video");
-            let ui = video.ui;
-            let controls = ui.getControls();
-            let player = controls.getPlayer();
+<body>
+  <div id="video-container">
+    <video id="video" class="shaka-video" autoplay muted></video>
+    <div id="controls" class="shaka-controls-container"></div>
+  </div>
 
-            player.configure({
-                drm: {
-                    clearKeys: {
-                        "ec2147a4b9b1b87ee3d8dc6915bc7928,":"c84fcd82767a9cd9e2e0c0d1b47a72c5"
-                    }
-                }
-            });
+  <!-- Premium Centered Square Telegram Pop-up -->
+  <div id="telegram-popup">
+    <h3>Join Our Telegram</h3>
+    <p>Get live match links and exclusive updates.</p>
+    <button onclick="window.open('https://t.me/+e6G48oujQuExOTg1', '_blank')">Join Telegram</button>
+    <button onclick="document.getElementById('telegram-popup').remove()">Already Joined</button>
+  </div>
 
-            ui.configure({
-                controlPanelElements: ["play_pause", "mute", "volume", "spacer", "time_and_duration", "quality", "fullscreen", "overflow_menu"],
-                volumeBarColors: {
-                    base: 'rgba(63, 187, 1, 1)',
-                    level: 'rgb(255, 69, 0)'
-                },
-                seekBarColors: {
-                    base: 'rgb(41, 41, 163)',
-                    buffered: 'rgb(35, 99, 3)',
-                    played: 'rgba(63, 187, 1, 1)'
-                }
-            });
+  <script>
+    async function initPlayer() {
+      const video = document.getElementById('video');
+      const container = document.getElementById('video-container');
+      const ui = new shaka.ui.Overlay(new shaka.Player(video), container, video);
+      const controls = ui.getControls();
+      const player = controls.getPlayer();
 
-            window.player = player;
-            window.ui = ui;
-
-            player.addEventListener("error", onPlayerErrorEvent);
-            controls.addEventListener("error", onUIErrorEvent);
-
-            try {
-                await player.load("https://aba5sdmaaaaaaaamlehympi3yw64b.otte.live.cf.ww.aiv-cdn.net/syd-nitro/live/clients/dash/enc/4ov3wylsyb/out/v1/acfdcf2dabd24075bb615c6c19ba9bd4/cenc.mpd");
-                console.log("The video has now been loaded!");
-            } catch (error) {
-                onPlayerError(error);
-            }
+      player.configure({
+        drm: {
+          clearKeys: {
+            'ec2147a4b9b1b87ee3d8dc6915bc7928': 'c84fcd82767a9cd9e2e0c0d1b47a72c5'
+          }
+        },
+        streaming: {
+          abr: { enabled: true },
+          bufferingGoal: 10,
+          rebufferingGoal: 5,
+          lowLatencyMode: true
         }
+      });
 
-        function onPlayerErrorEvent(event) {
-            onPlayerError(event.detail);
-        }
+      ui.configure({
+        controlPanelElements: [
+          'rewind', 'fast_forward',
+          'mute', 'volume', 'spacer', 'time_and_duration',
+          'fullscreen', 'overflow_menu'
+        ],
+        overflowMenuButtons: ['quality', 'language', 'playback_rate', 'captions'],
+        autoHide: false,
+        fadeDelay: 0
+      });
 
-        function onPlayerError(error) {
-            console.error("Error code", error.code, "object", error);
-        }
+      const manifestUri = 'https://otte.live.fly.ww.aiv-cdn.net/bom-nitro/live/clients/dash/enc/uugw0qkwob/out/v1/acfdcf2dabd24075bb615c6c19ba9bd4/cenc.mpd';
 
-        function onUIErrorEvent(event) {
-            onPlayerError(event.detail);
-        }
+      try {
+        await player.load(manifestUri);
+        console.log('Video loaded!');
+      } catch (e) {
+        console.error('Error loading video', e);
+      }
+        setTimeout(() => {
+        const spinner = container.querySelector('.shaka-spinner-container');
+        if (spinner) spinner.remove();
+      }, 500);
 
-        function initFailed(error) {
-            console.error("Unable to load the UI library!");
-        }
+      setTimeout(() => {
+        const playPause = container.querySelector('.shaka-play-button');
+        if (playPause) playPause.remove();
+      }, 800);
+    }
 
-        function welcome() {
-            window.open("https://t.me/+e6G48oujQuExOTg1");
-        }
-
-        document.addEventListener("shaka-ui-loaded", init);
-        document.addEventListener("shaka-ui-load-failed", initFailed);
-      // Telegram prompt
-        const message = "JOIN OUR TELEGRAM CHANNEL FOR MORE LIVE STREAM LINKS";
-        if (confirm(message)) {
-            window.location.href = "https://t.me/+e6G48oujQuExOTg1";
-        }
-    </script>
+    document.addEventListener('DOMContentLoaded', initPlayer);
+  </script>
 </body>
+
 </html>
